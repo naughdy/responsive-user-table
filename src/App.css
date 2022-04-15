@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+.App {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Roboto' sans-serif
+}
+
+.main-table-container {
+  width: 80%
+}
+
+.css-11xur9t-MuiPaper-root-MuiTableContainer-root {
+  max-height: 500px
+}
+
+.css-1t1j96h-MuiPaper-root-MuiDialog-paper {
+  width: 30%;
+  padding: 0 20px 20px 20px;
+  align-items: center;
+  display:flex;
+}
+
+.css-1t1j96h-MuiPaper-root-MuiDialog-paper h2{
+  margin: 10px 0 10px 0;
+  align-self: flex-start;
+  color: #333;
+}
+
+.css-1t1j96h-MuiPaper-root-MuiDialog-paper h3{
+  text-align: center;
+  color: #333;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center
+}
+.table-header h2 {
+  color: gray
+}
+
+.css-sghohy-MuiButtonBase-root-MuiButton-root  {
+  background-color: #7367F0 !important;
+  height: 40px
+}
+
+.header {
+  height: 70px;
+  width: 100%;
+}
+
+.header-container{
+  padding: 0 40px;
+  max-width: 1100px;
+  overflow: auto;
+  margin: 0 auto;
+  justify-content: space-between;
+  display: flex;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .header-container {
+    padding: 0 0px;
+  }
+
+  .css-1t1j96h-MuiPaper-root-MuiDialog-paper {
+    width: 90%
+  }
+
+  .searchbar{
+    width: 50%
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  /* For desktop: */
+  .main-table-container {
+    width: 60%
+  }
+}
+
+.searchbar{
+  width: 40%
+}
+
+.header .name {
+  display: flex;
+  color: gray
+}
+
+.name div {
+  margin-right: 5px;
+  text-align: right;
+}
+
+.name h4 {
+  margin: 10px 0 0 0
+}
+
+.name p {
+  margin: 0
+}
+
+.header img{
+  width: 50px;
+  height:50px
+}
