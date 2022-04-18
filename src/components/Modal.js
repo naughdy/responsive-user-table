@@ -32,6 +32,7 @@ const StyledTableName = styled("div")({
     color: "#7367F0",
     fontWeight: "bold",
     margin: "5px 0 0 0",
+    textAlign: "left",
   },
   "& p": {
     margin: 0,
