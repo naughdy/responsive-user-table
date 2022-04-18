@@ -1,5 +1,23 @@
+import { styled } from "@mui/material/styles";
 import React from "react";
+import Badge from "@mui/material/Badge";
+import Avatar from "@mui/material/Avatar";
 import { SearchBar } from "./SearchBar";
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  "& .MuiBadge-badge": {
+    backgroundColor: "#44b700",
+    color: "#44b700",
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+  },
+  "& .css-1wlk0hk-MuiAvatar-root": {
+    width: "auto",
+    height: "auto",
+  },
+  "& .css-ank3r8-MuiBadge-badge": {
+    right: "22%",
+  },
+}));
 
 export const Header = ({ filterData }) => {
   return (
@@ -12,11 +30,17 @@ export const Header = ({ filterData }) => {
         />
         <SearchBar filterData={filterData} />
         <div className="name">
-          <div>
+          <div className="name-text">
             <h4>John Doe</h4>
             <p>Admin</p>
           </div>
-          <img alt="" src="http://saptaphere.com/uploads/SAPT01196.jpg" />
+          <StyledBadge
+            overlap="circular"
+            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            variant="dot"
+          >
+            <Avatar alt="" src="http://saptaphere.com/uploads/SAPT01196.jpg" />
+          </StyledBadge>
         </div>
       </div>
     </div>

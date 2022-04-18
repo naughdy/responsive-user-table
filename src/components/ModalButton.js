@@ -4,12 +4,12 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 
 const BootstrapButton = styled(Button)({
-  backgroundColor: "cyan",
+  backgroundColor: "#00CFE8",
   fontWeight: "bold",
 });
 
 const ColorButton = styled(Button)(({ theme }) => ({
-  backgroundColor: "#7367F0",
+  backgroundColor: "#847BE7",
   fontWeight: "bold",
 }));
 

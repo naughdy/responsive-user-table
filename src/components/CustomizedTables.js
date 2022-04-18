@@ -11,9 +11,15 @@ import SimpleDialogDemo from "./Modal";
 import { Button } from "@mui/material";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  color: "#6E6B7B",
+  textAlign: "left",
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "lightgray",
-    fontWeight: 700,
+    backgroundColor: "#F3F2F7",
+    fontWeight: "700",
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+    fontWeight: 500,
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
@@ -35,11 +41,15 @@ const StyledTableName = styled("div")({
   },
   "& h3": {
     color: "#7367F0",
-    fontWeight: "bold",
+    fontWeight: 600,
     margin: "5px 0 0 0",
+    fontSize: 14,
   },
   "& p": {
     margin: 0,
+    fontSize: 12,
+    marginTop: 5,
+    color: "#B9B9C3",
   },
 });
 
@@ -49,17 +59,16 @@ const StyledTableStatus = styled("div")(({ theme, mycolor }) => {
     backgroundColor: mycolor.bg,
     width: "max-content",
     borderRadius: 15,
-    padding: 5,
+    padding: "1px 9px 1px 9px",
+    fontSize: 12,
+    fontWeight: 600,
     display: "inline",
   };
 });
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.action.hover,
-  },
   // hide last border
-  "&:last-child td, &:last-child th": {
+  "& td, & th": {
     border: 0,
   },
 }));
@@ -68,20 +77,13 @@ export default function CustomizedTables({ data, loadData }) {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState({});
 
-  const handleScroll = (data) => {
-    const { scrollTop, scrollHeight, clientHeight } = data.target;
-    if (scrollTop + clientHeight === scrollHeight) {
-      loadData();
-    }
-  };
-
   return (
     <>
       <div className="table-header">
         <h2>Visitors</h2>
         <Button variant="contained">Add Visitor</Button>
       </div>
-      <TableContainer component={Paper} onScroll={handleScroll}>
+      <TableContainer component={Paper}>
         <Table
           sx={{
             minWidth: 700,
@@ -125,20 +127,20 @@ export default function CustomizedTables({ data, loadData }) {
                     <StyledTableStatus
                       mycolor={
                         row.id % 2
-                          ? { bg: "lightgreen", text: "green" }
+                          ? { bg: "rgba(40, 199, 111, 0.12)", text: "#28C76F" }
                           : row.id % 3
-                          ? { bg: "lightgray", text: "gray" }
+                          ? { bg: "rgba(108, 117, 125, 0.12)", text: "#6C757D" }
                           : row.id % 5
-                          ? { bg: "#FEF3E8", text: "#FCAE61" }
+                          ? { bg: "rgba(255, 159, 67, 0.12)", text: "#FF9F43" }
                           : "NA"
                       }
                     >
                       {row.id % 2
-                        ? "active"
+                        ? "Active"
                         : row.id % 3
-                        ? "inactive"
+                        ? "Inactive"
                         : row.id % 5
-                        ? "removed"
+                        ? "Removed"
                         : "NA"}
                     </StyledTableStatus>
                   </StyledTableCell>

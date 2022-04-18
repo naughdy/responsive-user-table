@@ -9,8 +9,10 @@ const StyledTableStatus = styled("div")(({ theme, mycolor }) => {
     backgroundColor: mycolor.bg,
     width: "max-content",
     borderRadius: 15,
-    padding: 5,
+    padding: "1px 9px 1px 9px",
     display: "inline",
+    fontSize: 12,
+    fontWeight: 600,
   };
 });
 
@@ -22,7 +24,7 @@ const StyledTableName = styled("div")({
   justifyContent: "space-between",
   "& .avtar": {
     width: 50,
-    hieght: 50,
+    hieght: 20,
     borderRadius: 25,
   },
   "& .name": {
@@ -30,12 +32,15 @@ const StyledTableName = styled("div")({
   },
   "& h3": {
     color: "#7367F0",
-    fontWeight: "bold",
+    fontWeight: 600,
     margin: "5px 0 0 0",
+    fontSize: 14,
     textAlign: "left",
   },
   "& p": {
     margin: 0,
+    color: "#B9B9C3",
+    marginTop: 5,
   },
   "& .start-div": {
     display: "flex",
@@ -47,44 +52,49 @@ function SimpleDialog(props) {
 
   return (
     <Dialog open={open} onBackdropClick={onClose}>
-      <h2>Contact Details</h2>
-      <StyledTableName>
-        <div className="start-div">
-          <img className="avtar" alt="" src={user.avatar} />
-          <div className="name">
-            <h3>
-              {user.first_name} {user.last_name}
-            </h3>
-            <p>@{user.first_name}</p>
+      <div className="modal">
+        <h2>Contact Details</h2>
+        <StyledTableName>
+          <div className="start-div">
+            <img className="avtar" alt="" src={user.avatar} />
+            <div className="name">
+              <h3>
+                {user.first_name} {user.last_name}
+              </h3>
+              <p>@{user.first_name}</p>
+            </div>
           </div>
-        </div>
-        <StyledTableStatus
-          mycolor={
-            user.id % 2
-              ? { bg: "lightgreen", text: "green" }
+          <StyledTableStatus
+            mycolor={
+              user.id % 2
+                ? { bg: "rgba(40, 199, 111, 0.12)", text: "#28C76F" }
+                : user.id % 3
+                ? { bg: "rgba(108, 117, 125, 0.12)", text: "#6C757D" }
+                : user.id % 5
+                ? { bg: "rgba(255, 159, 67, 0.12)", text: "#FF9F43" }
+                : "NA"
+            }
+          >
+            {user.id % 2
+              ? "Active"
               : user.id % 3
-              ? { bg: "lightgray", text: "gray" }
+              ? "Inactive"
               : user.id % 5
-              ? { bg: "#FEF3E8", text: "#FCAE61" }
-              : "NA"
-          }
-        >
-          {user.id % 2
-            ? "active"
-            : user.id % 3
-            ? "inactive"
-            : user.id % 5
-            ? "removed"
-            : "NA"}
-        </StyledTableStatus>
-      </StyledTableName>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Feugiat nisl pretium
-        fusce id. Urna duis convallis convallis tellus id interdum.
-      </p>
-      <h3>More Contact Details</h3>
-      <CustomizedButtons />
+              ? "Removed"
+              : "NA"}
+          </StyledTableStatus>
+        </StyledTableName>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Feugiat
+          nisl pretium fusce id. Urna duis convallis convallis tellus id
+          interdum.
+        </p>
+      </div>
+      <div className="modal-footer">
+        <h3>More Contact Details</h3>
+        <CustomizedButtons />
+      </div>
     </Dialog>
   );
 }

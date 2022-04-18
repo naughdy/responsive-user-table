@@ -1,4 +1,10 @@
-import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import "./App.css";
 import CustomizedTables from "./components/CustomizedTables";
 import { Header } from "./components/Header";
@@ -17,7 +23,10 @@ function App() {
         setFilteredData((old) => {
           return [...old, ...data.data];
         });
-        page.current += 1;
+        if (window.innerHeight > 700 && page.current < 2) {
+          page.current += 1;
+          loadData();
+        }
       });
   }, []);
 
@@ -31,10 +40,30 @@ function App() {
     );
   };
 
+  const handleScroll = () => {
+    var isAtBottom =
+      document.documentElement.scrollHeight -
+        document.documentElement.scrollTop <=
+      document.documentElement.clientHeight;
+
+    if (isAtBottom) {
+      page.current += 1;
+      loadData();
+    }
+    // if(window.innerHeight)
+  };
+
+  useEffect(() => {
+    document.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
+
   return (
     <div className="App">
       <Header filterData={filterData} />
-      <div className="main-table-container">
+      <div className="main-table-container" onScroll={handleScroll}>
         <CustomizedTables data={filteredData} loadData={loadData} />
       </div>
     </div>
