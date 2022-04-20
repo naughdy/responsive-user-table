@@ -9,6 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import SimpleDialogDemo from "./Modal";
 import { Button } from "@mui/material";
+import { SideDetails } from "./SideDetails";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   color: "#6E6B7B",
@@ -66,6 +67,15 @@ const StyledTableStatus = styled("div")(({ theme, mycolor }) => {
   };
 });
 
+const StyledTable = styled("div")(({ theme, displayDirection }) => {
+  return {
+    display: "flex",
+    flexDirection: displayDirection,
+    marginLeft: displayDirection === "row" ? 65 : 0,
+    flex: 2,
+  };
+});
+
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   // hide last border
   "& td, & th": {
@@ -73,88 +83,110 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function CustomizedTables({ data, loadData }) {
+export default function CustomizedTables({
+  data,
+  loadData,
+  openSideDetails,
+  setSideUser,
+}) {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState({});
+  const [displayDirection, setDisplayDirection] = useState("column");
 
   return (
-    <>
-      <div className="table-header">
-        <h2>Visitors</h2>
-        <Button variant="contained">Add Visitor</Button>
-      </div>
-      <TableContainer component={Paper}>
-        <Table
-          sx={{
-            minWidth: 700,
-          }}
-          aria-label="customized table"
-          stickyHeader
-        >
-          <TableHead>
-            <TableRow>
-              <StyledTableCell width="30%">NAME</StyledTableCell>
-              <StyledTableCell width="35%" align="center">
-                EMAIL
-              </StyledTableCell>
-              <StyledTableCell width="35%" align="center">
-                STATUS
-              </StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.map((row) => {
-              return (
-                <StyledTableRow key={row.id} id={`row-${row.id}`}>
-                  <StyledTableCell component="th" scope="row">
-                    <StyledTableName
-                      onClick={() => {
-                        setUser(row);
-                        setOpen(true);
-                      }}
-                    >
-                      <img className="avtar" alt="" src={row.avatar} />
-                      <div className="name">
-                        <h3>
-                          {row.first_name} {row.last_name}
-                        </h3>
-                        <p>@{row.first_name}</p>
-                      </div>
-                    </StyledTableName>
-                  </StyledTableCell>
-                  <StyledTableCell align="center">{row.email}</StyledTableCell>
-                  <StyledTableCell align="center">
-                    <StyledTableStatus
-                      mycolor={
-                        row.id % 2
-                          ? { bg: "rgba(40, 199, 111, 0.12)", text: "#28C76F" }
+    <StyledTable display={displayDirection} className="inner-table-container">
+      <div className="side-table">
+        <div className="table-header">
+          <h2>Visitors</h2>
+          <Button variant="contained">Add Visitor</Button>
+        </div>
+        <TableContainer component={Paper}>
+          <Table
+            sx={{
+              minWidth: 700,
+            }}
+            aria-label="customized table"
+            stickyHeader
+          >
+            <TableHead>
+              <TableRow>
+                <StyledTableCell width="30%">NAME</StyledTableCell>
+                <StyledTableCell width="35%" align="center">
+                  EMAIL
+                </StyledTableCell>
+                <StyledTableCell width="35%" align="center">
+                  STATUS
+                </StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data.map((row) => {
+                return (
+                  <StyledTableRow key={row.id} id={`row-${row.id}`}>
+                    <StyledTableCell component="th" scope="row">
+                      <StyledTableName
+                        onClick={() => {
+                          setDisplayDirection("row");
+                          setUser(row);
+                          setSideUser(row);
+                          openSideDetails();
+                          // setOpen(true);
+                        }}
+                      >
+                        <img className="avtar" alt="" src={row.avatar} />
+                        <div className="name">
+                          <h3>
+                            {row.first_name} {row.last_name}
+                          </h3>
+                          <p>@{row.first_name}</p>
+                        </div>
+                      </StyledTableName>
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      {row.email}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      <StyledTableStatus
+                        mycolor={
+                          row.id % 2
+                            ? {
+                                bg: "rgba(40, 199, 111, 0.12)",
+                                text: "#28C76F",
+                              }
+                            : row.id % 3
+                            ? {
+                                bg: "rgba(108, 117, 125, 0.12)",
+                                text: "#6C757D",
+                              }
+                            : row.id % 5
+                            ? {
+                                bg: "rgba(255, 159, 67, 0.12)",
+                                text: "#FF9F43",
+                              }
+                            : "NA"
+                        }
+                      >
+                        {row.id % 2
+                          ? "Active"
                           : row.id % 3
-                          ? { bg: "rgba(108, 117, 125, 0.12)", text: "#6C757D" }
+                          ? "Inactive"
                           : row.id % 5
-                          ? { bg: "rgba(255, 159, 67, 0.12)", text: "#FF9F43" }
-                          : "NA"
-                      }
-                    >
-                      {row.id % 2
-                        ? "Active"
-                        : row.id % 3
-                        ? "Inactive"
-                        : row.id % 5
-                        ? "Removed"
-                        : "NA"}
-                    </StyledTableStatus>
-                  </StyledTableCell>
-                </StyledTableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-        <SimpleDialogDemo
+                          ? "Removed"
+                          : "NA"}
+                      </StyledTableStatus>
+                    </StyledTableCell>
+                  </StyledTableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+          {/* <SimpleDialogDemo
           open={open}
           onClose={() => setOpen(false)}
           user={user}
-        />
-      </TableContainer>
-    </>
+        /> */}
+        </TableContainer>
+      </div>
+    </StyledTable>
   );
 }

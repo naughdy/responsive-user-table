@@ -1,3 +1,4 @@
+import { styled } from "@mui/material";
 import React, {
   useCallback,
   useEffect,
@@ -8,10 +9,19 @@ import React, {
 import "./App.css";
 import CustomizedTables from "./components/CustomizedTables";
 import { Header } from "./components/Header";
+import { SideDetails } from "./components/SideDetails";
+
+const StyledTableContainer = styled("div")(({ theme, sideOpen }) => ({
+  // hide last border
+  width: sideOpen ? "100%" : "80%",
+}));
+
 function App() {
   const page = useRef(1);
   const [originalData, setOriginalData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [user, setUser] = useState({});
 
   const loadData = useCallback(() => {
     fetch(`https://reqres.in/api/users?page=${page.current}`)
@@ -63,9 +73,19 @@ function App() {
   return (
     <div className="App">
       <Header filterData={filterData} />
-      <div className="main-table-container" onScroll={handleScroll}>
-        <CustomizedTables data={filteredData} loadData={loadData} />
-      </div>
+      <StyledTableContainer
+        className="main-table-container"
+        onScroll={handleScroll}
+        sideOpen={open}
+      >
+        <CustomizedTables
+          data={filteredData}
+          loadData={loadData}
+          openSideDetails={() => setOpen(true)}
+          setSideUser={(obj) => setUser(obj)}
+        />
+        {open && <SideDetails user={user} />}
+      </StyledTableContainer>
     </div>
   );
 }

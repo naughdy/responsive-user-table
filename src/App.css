@@ -99,6 +99,33 @@
   padding: 10px 35px;
 }
 
+.side-panel {
+  flex: 1;
+  padding: 80px 50px;
+  background: #F8F8F8;
+}
+.side-panel-start-div {
+  display: flex
+}
+
+.side-panel-start-div .avtar{
+  width: 100px;
+  height:100px;
+  border-radius: 50px;
+}
+
+.side-panel-start-div .name h3 {
+  color: #7367F0
+}
+
+.side-panel-start-div .name {
+  margin-left: 25px
+}
+
+.side-table {
+  flex: 2;
+}
+
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
   .header-container {
@@ -129,8 +156,13 @@
 
 @media only screen and (min-width: 768px) {
   /* For desktop: */
-  .main-table-container {
+  /* .main-table-container {
     width: 60%
+  } */
+  .main-table-container {
+    /* margin-top: 90px; */
+    width: 100%;
+    display: flex;
   }
 }
 
